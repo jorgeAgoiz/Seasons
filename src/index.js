@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import SeasonDisplay from "./SeasonDisplay";
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+import SeasonDisplay from './SeasonDisplay'
 
 // *******************************************************************
 // Functional Component Example Counter
@@ -42,23 +42,32 @@ import SeasonDisplay from "./SeasonDisplay";
 class App extends React.Component {
   // To initialize the state in constructor
   constructor(props) {
-    super(props);
+    super(props)
     // First instance state object with null properties
-    this.state = { lat: null };
+    this.state = { lat: null, errorMessage: '' }
 
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
         //When the location load, use setState method to update lat property
-        this.setState({ lat: position.coords.latitude });
+        this.setState({ lat: position.coords.latitude })
       },
-      (err) => console.log(err),
-    );
+      (err) => {
+        this.setState({ errorMessage: err.message })
+      },
+    )
   }
 
   // Render method
   render() {
-    return <div>Latitude: {this.state.lat}</div>;
+    if (!this.state.errorMessage && this.state.lat) {
+      return <div>Latitude: {this.state.lat}</div>
+    }
+    if (!this.state.lat && this.state.errorMessage) {
+      return <div>Error: {this.state.errorMessage}</div>
+    }
+
+    return <div>Loading...</div>
   }
 }
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+ReactDOM.render(<App />, document.querySelector('#root'))
