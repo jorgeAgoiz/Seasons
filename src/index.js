@@ -40,27 +40,24 @@ import SeasonDisplay from './SeasonDisplay'
 // ******************************** Example with class component *******************************
 // Class Component Example
 class App extends React.Component {
-  // To initialize the state in constructor
-  constructor(props) {
-    super(props)
-    // First instance state object with null properties
-    this.state = { lat: null, errorMessage: '' }
+  // Babel transform this in a constructor function itself.
+  state = { lat: null, errorMessage: '' };
 
+  componentDidMount () {
     window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        //When the location load, use setState method to update lat property
-        this.setState({ lat: position.coords.latitude })
-      },
-      (err) => {
-        this.setState({ errorMessage: err.message })
-      },
+      (position) => this.setState({ lat: position.coords.latitude }),
+      (err) => this.setState({ errorMessage: err.message }),
     )
   }
 
+  componentDidUpdate () {
+    console.log("Component Updated!!");
+  }
+
   // Render method
-  render() {
+  render () {
     if (!this.state.errorMessage && this.state.lat) {
-      return <div>Latitude: {this.state.lat}</div>
+      return <SeasonDisplay lat={this.state.lat} />;
     }
     if (!this.state.lat && this.state.errorMessage) {
       return <div>Error: {this.state.errorMessage}</div>
