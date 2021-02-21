@@ -1,13 +1,35 @@
 .icon-left {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 35px;
+  left: 35px;
+  -webkit-animation: spin 3s linear infinite;
+  -moz-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
 }
 
 .icon-right {
   position: absolute;
-  bottom: 15px;
-  right: 15px;
+  bottom: 35px;
+  right: 35px;
+  -webkit-animation: spin 3s linear infinite;
+  -moz-animation: spin 3s linear infinite;
+  animation: spin 3s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 .season-display {

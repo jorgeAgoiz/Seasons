@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import SeasonDisplay from './SeasonDisplay'
+import Spinner from './Spinner';
 
 // *******************************************************************
 // Functional Component Example Counter
@@ -54,16 +55,24 @@ class App extends React.Component {
     console.log("Component Updated!!");
   }
 
-  // Render method
-  render () {
+  renderContent () {
     if (!this.state.errorMessage && this.state.lat) {
       return <SeasonDisplay lat={this.state.lat} />;
     }
     if (!this.state.lat && this.state.errorMessage) {
-      return <div>Error: {this.state.errorMessage}</div>
+      return <div>Error: {this.state.errorMessage}</div>;
     }
 
-    return <div>Loading...</div>
+    return <Spinner message='Please accept location request...' />;
+  }
+
+  // Render method
+  render () {
+    return (
+      <div className="border red">
+        {this.renderContent()}
+      </div>
+    );
   }
 }
 
